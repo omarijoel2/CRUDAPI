@@ -18,7 +18,7 @@ from django.urls import path,include
 from projects import views
 
 
-urlpatterns = [
+urlpatterns=[
     path('admin/', admin.site.urls),
     path('edit/<str:pk>/',views.edit),
     path('add', views.add),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('all',views.projects),
     path('show',views.show),
     path('api/',include('api.urls')),
+    
 ]

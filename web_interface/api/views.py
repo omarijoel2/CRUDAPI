@@ -10,54 +10,27 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 
-def get_projects(request):
-    serializer = ProjectSerializer(Projects, many=True)
-    return Response({'Projects': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def ProjectList(request):
+    projdata = Projects.objects.all()
+    serializer =  ProjectSerializer(projdata, many=True)
+    return Response(serializer.data)
 
+@api_view(['POST'])
+def ProjectCreate(request):
+    serializer = ProjectSerializer(data=request.data)
 
-
-def add_project(request):
-
-    try:
-
-        Projects = Projects.objects.create(
-                      ProjectRef='ProjectRef',
-                      ProjectTitle='ProjectTitle',
-                      Country='Country',
-                      ImplementingOffice='ImplementingOffice',
-                      DateFromGcf='DateFromGcf',
-                      StartDate='StartDate',
-                      EndDate='EndDate',
-                      Disbursement='Disbursement',
-                      GrantAmount='GrantAmount',
-                      Status='Status',
-        )
-        serializer = ProjectSerializer(Projects)
-        return Response({'Projects': serializer.data}, safe=False, status=status.HTTP_201_CREATED)
-    except ObjectDoesNotExist as e:
-        return Response({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
-    except Exception:
-        return Response({'error': 'Something terrible went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-def getProjectByStatus(request):
-        try:
-
-            Projects = Projects.objects.filter(Status='Completed')
-            serializer = ProjectSerializer(Projects)
-            return JsonResponse({'Projects': serializer.data}, safe=False, status=status.HTTP_201_CREATED)
-        except ObjectDoesNotExist as e:
-            return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
-        except Exception:
-            return Response({'error': 'Something terrible went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-def getByCountry(request):
-    try:
-
-        Projects = Projects.objects.filter(Country='Kenya')
-        serializer = ProjectSerializer(Projects)
-        return Response({'Projects': serializer.data}, safe=False, status=status.HTTP_201_CREATED)
-    except ObjectDoesNotExist as e:
-        return Response({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
-    except Exception:
-        return Response({'error': 'Something terrible went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+@api_view(['GET'])
+def ProjectByStatus(request):
+        proj_info = Projects.objects.filter(Status='Completed')
+        serializer = ProjectSerializer(proj_info, many=True)
+        return Response(serializer.data)
+@api_view(['GET'])
+def ByCountry(request):
+    ken_pro = Projects.objects.filter(Country=4)
+    serializer = ProjectSerializer(ken_pro, many=True)
+    return Response(serializer.data)
