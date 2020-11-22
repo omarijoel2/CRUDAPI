@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Records</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+</head>
+<body>
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>Project Ref</th>
+        <th>Project Title</th>
+        <th>Country</th>
+        <th>Impelementing Office</th>
+        <th>Date From Gcf</th>
+        <th>Start Date</th>
+
+        <th>End Date</th>
+        <th>Disbursement</th>
+        <th>Grant Amount</th>
+        <th>Status</th>
+
+        <th>Actions</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+{% for p in Projects %}
+    <tr>
+        <td>{{ P.ProjectRef }}</td>
+        <td>{{ P.ProjectTitle }}</td>
+        <td>{{ P.Country }}</td>
+        <td>{{ P.ImplementingOffice }}</td>
+        <td>{{ P.DateFromGcf }}</td>
+        <td>{{ P.StartDate }}</td>
+        <td>{{ P.EndDate }}</td>
+
+        <td>{{ P.Disbursement}}</td>
+
+
+        <td>{{ P.Grants.Amount }}</td>
+
+        <td>{{ P.Status }}</td>
+        <td>
+            <a href="/edit/{{ P.project_Id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+            <a href="/delete/{{ P.project_Id }}">Delete</a>
+        </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+<center><a href="/add" class="btn btn-primary">Add New Record</a></center>
+</body>
+</html>

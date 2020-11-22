@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+</head>
+<body>
+<form method="POST" class="post-form" action="/add">
+        {% csrf_token %}
+    <div class="container">
+<br>
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <h3>Details</h3>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Project Reference:</label>
+    <div class="col-sm-4">
+        <input type="text" name="ProjectRef" id="Ptitle" required maxlength="225" value="{{ Projects.ProjectRef }}"/>
+    </div>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label">Project Title:</label>
+  <div class="col-sm-4">
+      <input type="text" name="ProjectTitle" id="project_id" required maxlength="255" value="{{Projects.ProjectTitle }}"/>
+  </div>
+</div>
+<div class="form-group row">
+<label class="col-sm-2 col-form-label">Country:</label>
+<div class="col-sm-4">
+  {% load countries %}
+  {% get_countries as countries %}
+  <select>
+  {% for country in countries %}
+      <option value="{{ country.code }}">{{ country.name }}</option>
+  {% endfor %}
+  </select>
+    <input type="dropdown-toggle" name="Country"  required maxlength="20" value="{{ Projects.Country}}"/>
+</div>
+</div>
+<div class="form-group row">
+<label class="col-sm-2 col-form-label">Date From Gcf:</label>
+<div class="col-sm-4">
+    <input type="text" name="DateFromGcf"  required maxlength="20" value="{{ Projects.DateFromGcf}}"/>
+</div>
+</div>
+<div class="form-group row">
+<label class="col-sm-2 col-form-label">Start Date:</label>
+<div class="col-sm-4">
+    <input type="date" name="StartDate"  required maxlength="20" value="{{ Projects.StartDate}}"/>
+</div>
+</div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">End Date:</label>
+    <div class="col-sm-4">
+        <input type="date" name="EndDate" id="EndDate" required maxlength="100" value="{{ Projects.EndDate }}" />
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Disbursed Amount:</label>
+    <div class="col-sm-4">
+        <input type="text" name="Disbursement" id="Disbursed"required maxlength="254"value="{{ Projects.Disbursement }}" />
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Grant Amount:</label>
+    <div class="col-sm-4">
+
+
+        <input type="text" name="GrantAmount" id="GrantId" required maxlength="15"
+
+        value="{{ Projects.GrantsAmount }}">
+
+    </div>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label">Project Status:</label>
+  <div class="col-sm-4">
+
+
+
+
+        <select name= "Status"class="custom-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="UnderImplementation">Under Implementation</option>
+          <option value="Completed">Completed</option>
+
+        </select></div>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label">Type of Readiness:</label>
+  <div class="col-sm-4">
+
+
+      <input type="text" name="TypeOfReadiness" id="Id" required maxlength="15"
+
+      value="{{ Projects.TypeOfReadiness }}">
+
+  </div>
+</div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label">Readiness:</label>
+  <div class="col-sm-4">
+
+
+
+
+        <select name= "States"class="custom-select" id="inputGroupSelect02">
+          <option selected>Choose...</option>
+          <option value="Readiness">Readiness</option>
+          <option value="NationalAdaptationPlans">National Adaptation Plans</option>
+
+        </select></div>
+  </div>
+</div>
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <button type="submit" class="btn btn-success">Save</button>
+    </div>
+  </div>
+    </div>
+</form>
+</body>
+</html>
